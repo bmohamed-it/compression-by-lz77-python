@@ -224,9 +224,7 @@ This project was developed to gain practical experience with:
 
 ## Author
 
-**Bilal Mohamed**
-
-GitHub: **bmohamed-it**
+****
 
 ## License
 
