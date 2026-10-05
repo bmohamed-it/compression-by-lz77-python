@@ -13,7 +13,7 @@ def read_message(filename):
                 char = file.read(1)
                 if (char == ""):
                     break
-                else:
+                elif (char.isalpha()):
                     message.append(char)
         return message
     except FileNotFoundError:
