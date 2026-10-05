@@ -9,7 +9,7 @@ def read_message(filename):
         folder = os.path.dirname(__file__)
         filepath = os.path.join(folder, filename + ".txt")
         with open(filepath, "r") as file:
-            while True:
+            while (True):
                 char = file.read(1)
                 if (char == ""):
                     break
@@ -38,7 +38,7 @@ def lz77_compression(message):
                     best_match = match_length
                     best_j = j
         if (best_match == 0):
-            compressed.append([0, 0, message[i]])
+            compressed.append((0, 0, message[i]))
             i += 1
         else:
             offset = i - best_j
@@ -47,7 +47,7 @@ def lz77_compression(message):
                 next_symbol = ''
             else:
                 next_symbol = message[i + best_match]
-            tag = [offset, length, next_symbol]
+            tag = (offset, length, next_symbol)
             compressed.append(tag)
             i += best_match + 1
     return compressed
@@ -94,43 +94,51 @@ def write_message(message, newname):
             file.write(str(item))
 
 first_window = True
-while True:
+while (True):
     if (first_window == True):
-        print("\n=========================" \
-        "\n======== Welcome ========"\
-        "\n===== Compressy App =====" \
-        "\n=========================")
+        print(
+            "\n┌─────────────────────────┐"
+            "\n│       | Welcome |       │"
+            "\n│      Compressy App      │"
+            "\n└─────────────────────────┘"
+        )
         first_window = False
-    print("\n----------------------"
-    "\n|        MENU        |" \
-    "\n----------------------" \
-    "\n[1]. Compression" \
-    "\n[2]. Decompression" \
-    "\n[0]. Exit" \
-    "\n----------------------")
-    choice = int(input("Please enter your choice: "))
-    if (choice == 1):
-        filename = input("Please enter file name: ")
-        message = read_message(filename)
-        if message is None:
-            print("File not found, please enter a valid file name")
+    print(
+        "\n┌─────────────────────────┐"
+        "\n│      [ MAIN MENU ]      │"
+        "\n├─────────────────────────┤"
+        "\n│  [1]  Compression       │"
+        "\n│  [2]  Decompression     │"
+        "\n│  [0]  Exit              │"
+        "\n└─────────────────────────┘"
+    )
+    try:
+        choice = int(input("Please enter your choice: "))
+        if (choice == 1):
+            filename = input("Please enter file name: ")
+            message = read_message(filename)
+            if message is None:
+                print("File not found please enter a valid file name.")
+            else:
+                compressed = lz77_compression(message)
+                newname = input("Enter new file name: ")
+                write_compressed(compressed, newname)
+                print("File created successfully!")
+        elif (choice == 2):
+            
+            filename = input("Please enter file name: ")
+            compressed = read_compressed(filename)
+            if compressed is None:
+                print("File not found please enter a valid file name.")
+            else:
+                message = lz77_decompression(compressed)
+                newname = input("Enter new file name: ")
+                write_message(message, newname)
+                print("File created successfully!")
+        elif (choice == 0): 
+            print("\nGoodbye! Thanks for using Compressy App.")
+            break
         else:
-            compressed = lz77_compression(message)
-            newname = input("Enter new file name: ")
-            write_compressed(compressed, newname)
-            print("File created successfully!")
-    elif (choice == 2):
-        
-        filename = input("Please enter file name: ")
-        compressed = read_compressed(filename)
-        if compressed is None:
-            print("File not found please enter a valid file name.")
-        else:
-            message = lz77_decompression(compressed)
-            newname = input("Enter new file name: ")
-            write_message(message, newname)
-            print("File created successfully!")
-    elif (choice == 0): 
-        break
-    else:
-        print("Invalid choice please try again.")
+            print("Invalid choice please try again.")
+    except ValueError:
+        print("Error try again.")
