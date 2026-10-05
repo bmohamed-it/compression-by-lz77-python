@@ -224,8 +224,8 @@ This project was developed to gain practical experience with:
 
 ## Author
 
-**Bilal Mohamed Abd Al-Hamed**
-**Mohamed Tarek Mohamed Hossny**
+**Bilal Mohamed Abd Al-Hamed**<br>
+**Mohamed Tarek Mohamed Hossny**<br>
 **Hassan Sameh Hassan**
 
 ## License
